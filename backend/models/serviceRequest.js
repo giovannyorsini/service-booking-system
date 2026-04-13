@@ -1,5 +1,6 @@
 class ServiceRequest {
   constructor(name, addres, serviceType) {
+    this.id = Date.now();
     this.name = name;
     this.addres = addres;
     this.serviceType = serviceType;
