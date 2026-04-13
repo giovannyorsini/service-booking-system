@@ -42,3 +42,28 @@ app.post("/requests", (req, res) => {
 app.get("/requests", (req, res) => {
   res.json(requests);
 });
+
+app.patch("/requests/:id", (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!status) {
+    return res.status(400).json({ error: "Status is required"});
+  }
+
+  const allowedStatus = ["pending", "completed"];
+  
+  if (!allowedStatus.includes(status)) {
+    return res.status(400).json({ error: "Status not allowed"});
+  }
+
+  const request = requests.find(r => r.id == id);
+
+  if (!request) {
+    return res.status(404).json({ error: "Request not found"});
+  }
+
+  request.updateStatus(status);
+
+  res.json(request);
+});
