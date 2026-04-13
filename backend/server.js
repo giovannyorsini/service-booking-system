@@ -22,9 +22,17 @@ const requests = [];
 app.post("/requests", (req, res) => {
   const { name, address, serviceType } = req.body;
 
+  if (!name?.trim() || !address?.trim() || !serviceType?.trim()) {
+    return res.status(400).json({ error: "Fields cannot be empty" });
+  }
+
   const newRequest = new ServiceRequest(name, address, serviceType);
 
   requests.push(newRequest);
 
   res.status(201).json(newRequest);
+});
+
+app.get("/requests", (req, res) => {
+  res.json(requests);
 });
