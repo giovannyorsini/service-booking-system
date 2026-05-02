@@ -1,4 +1,5 @@
-const express = require("express");
+import express from "express";
+import { ServiceRequest } from "./models/ServiceRequest.js";
 
 // Initialize the local server
 const app = express();
@@ -15,8 +16,6 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
-
-const ServiceRequest = require("./models/ServiceRequest");
 
 // In-memory store used for local development/demo purposes.
 // Replace with a database-backed repository for production usage.
