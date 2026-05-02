@@ -3,7 +3,7 @@ import { ServiceRequest } from "./models/ServiceRequest.js";
 
 // Initialize the local server
 const app = express();
-const PORT = 3000;
+const PORT = 3000; // Also can be a dotenv for production usage
 
 // Parse JSON request bodies so route handlers can consume req.body safely.
 app.use(express.json());
@@ -48,19 +48,19 @@ app.patch("/requests/:id", (req, res) => {
   const { status } = req.body;
 
   if (!status) {
-    return res.status(400).json({ error: "Status is required"});
+    return res.status(400).json({ error: "Status is required" });
   }
 
   const allowedStatus = ["pending", "completed"];
-  
+
   if (!allowedStatus.includes(status)) {
-    return res.status(400).json({ error: "Status not allowed"});
+    return res.status(400).json({ error: "Status not allowed" });
   }
 
-  const request = requests.find(r => r.id == id);
+  const request = requests.find((r) => r.id == id);
 
   if (!request) {
-    return res.status(404).json({ error: "Request not found"});
+    return res.status(404).json({ error: "Request not found" });
   }
 
   request.updateStatus(status);
