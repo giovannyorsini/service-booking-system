@@ -1,4 +1,4 @@
-class ServiceRequest {
+export class ServiceRequest {
   constructor(name, addres, serviceType) {
     // Millisecond timestamp is sufficient for this in-memory prototype.
     // Consider UUIDs to avoid collisions in distributed environments.
@@ -15,5 +15,3 @@ class ServiceRequest {
     this.status = newStatus;
   }
 }
-
-module.exports = ServiceRequest;
