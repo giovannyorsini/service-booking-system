@@ -1,12 +1,8 @@
-import express from "express";
+import app from "./app.js";
 import { ServiceRequest } from "./models/ServiceRequest.js";
 
 // Initialize the local server
-const app = express();
 const PORT = 3000;
-
-// Parse JSON request bodies so route handlers can consume req.body safely.
-app.use(express.json());
 
 // Testing the server
 app.get("/", (req, res) => {
