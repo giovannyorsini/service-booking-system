@@ -1,4 +1,4 @@
-import express from "express";
+import app from "./app.js";
 import { ServiceRequest } from "./models/ServiceRequest.js";
 
 // Initialize the local server
