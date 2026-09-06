@@ -8,6 +8,7 @@ function RequestCard({ request }) {
     <article
       className="
         @container
+        group
         rounded-2xl
         border
         border-slate-200
@@ -56,7 +57,7 @@ function RequestCard({ request }) {
             text-sm
             font-medium
             text-slate-700
-            transition
+            transition-colors
             duration-200
             hover:text-slate-950
           "
@@ -64,7 +65,12 @@ function RequestCard({ request }) {
           View request
           <span
             aria-hidden="true"
-            className="ml-1 transition-transform duration-200 group-hover:translate-x-0.5"
+            className="
+              ml-1
+              transition-transform
+              duration-200
+              group-hover:translate-x-0.5
+            "
           >
             →
           </span>
