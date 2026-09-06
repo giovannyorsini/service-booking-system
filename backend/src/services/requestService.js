@@ -1,4 +1,4 @@
-import { ServiceRequest } from "../models/ServiceRequest.js";
+import { ServiceRequest } from "../models/serviceRequest.js";
 import * as store from "../data/requestsStore.js";
 import { validateFields, isValidStatus } from "../utils/validation.js";
 
