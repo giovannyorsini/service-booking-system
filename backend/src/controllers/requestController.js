@@ -2,27 +2,36 @@ import * as requestService from "../services/requestService.js";
 
 export const getRequests = (req, res) => {
   const requests = requestService.getAllRequests();
-  res.json(requests);
+
+  res.status(200).json(requests);
+};
+
+export const getRequestById = (req, res) => {
+  const { id } = req.params;
+
+  const request = requestService.getRequestById(id);
+
+  res.status(200).json(request);
 };
 
 export const createRequest = (req, res) => {
-  const { name, address, serviceType } = req.body;
-  try {
-    const newRequest = requestService.createRequest(name, address, serviceType);
-    res.status(201).json(newRequest);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+  const newRequest = requestService.createRequest(req.body);
+
+  res.status(201).json(newRequest);
 };
 
-export const updateRequestStatus = (req, res) => {
+export const updateRequest = (req, res) => {
   const { id } = req.params;
-  const { status } = req.body;
-  try {
-    const updated = requestService.updateRequestStatus(id, status);
-    res.json(updated);
-  } catch (error) {
-    const statusCode = error.message === "Request not found" ? 404 : 400;
-    res.status(statusCode).json({ error: error.message });
-  }
+
+  const updatedRequest = requestService.updateRequest(id, req.body);
+
+  res.status(200).json(updatedRequest);
+};
+
+export const deleteRequest = (req, res) => {
+  const { id } = req.params;
+
+  requestService.deleteRequest(id);
+
+  res.status(204).send();
 };

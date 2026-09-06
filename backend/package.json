@@ -1,15 +1,28 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
+  "name": "Service Booking System Backend",
+  "version": "1.1.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "backend",
+    "service-booking",
+    "express",
+    "nodejs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/giovannyorsini/service-booking-system"
+  },
+  "bugs": {
+    "url": "https://github.com/giovannyorsini/service-booking-system/issues"
+  },
+  "homepage": "https://github.com/giovannyorsini/service-booking-system#readme",
+  "author": "Giovanny Orsini da Silva",
+  "license": "MIT",
+  "description": "Backend for the Service Booking System",
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1"
