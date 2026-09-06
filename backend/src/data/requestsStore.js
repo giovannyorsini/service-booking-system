@@ -1,20 +1,43 @@
 // In-memory store used for local development/demo purposes.
-// Replace with a database-backed repository for production usage.
+// Can be replaced with a database-backed repository
 const requests = [];
 
-export const getAllRequests = () => requests;
+export const getAllRequests = () => {
+  return [...requests];
+};
+
+export const findRequestById = (id) => {
+  return requests.find((request) => String(request.id) === String(id));
+};
 
 export const addRequest = (request) => {
   requests.push(request);
+
   return request;
 };
 
-export const findRequestById = (id) => requests.find((r) => r.id == id);
-
-export const updateRequestStatus = (id, newStatus) => {
+export const updateRequest = (id, updates) => {
   const request = findRequestById(id);
-  if (request) {
-    request.updateStatus(newStatus);
+
+  if (!request) {
+    return null;
   }
+
+  request.update(updates);
+
   return request;
+};
+
+export const deleteRequest = (id) => {
+  const index = requests.findIndex(
+    (request) => String(request.id) === String(id),
+  );
+
+  if (index === -1) {
+    return null;
+  }
+
+  const [deletedRequest] = requests.splice(index, 1);
+
+  return deletedRequest;
 };

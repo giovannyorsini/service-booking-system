@@ -1,7 +1,7 @@
 {
   "name": "Service Booking System Frontend",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A service booking system frontend built with React and Vite.",
   "author": "Giovanny Orsini da Silva",
   "license": "MIT",
