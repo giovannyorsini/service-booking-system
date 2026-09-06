@@ -1,22 +1,15 @@
 import { useState } from "react";
 
 const serviceOptions = [
-  {
-    value: "gutter installation",
-    label: "Gutter installation",
-  },
-  {
-    value: "gutter repair",
-    label: "Gutter repair",
-  },
-  {
-    value: "gutter cleaning",
-    label: "Gutter cleaning",
-  },
+  { value: "gutter installation", label: "Gutter installation" },
+  { value: "gutter repair", label: "Gutter repair" },
+  { value: "gutter cleaning", label: "Gutter cleaning" },
 ];
 
+const fieldClasses =
+  "mt-2 block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 focus:border-slate-400 focus:ring-4 focus:ring-slate-100";
+
 function RequestEditForm({ request, onSubmit, onCancel, isSubmitting }) {
-  // Initialize form data state with the request prop or default values
   const [formData, setFormData] = useState(() => ({
     name: request?.name || "",
     address: request?.address || "",
@@ -56,7 +49,6 @@ function RequestEditForm({ request, onSubmit, onCancel, isSubmitting }) {
       !cleanedData.status
     ) {
       setValidationError("Please complete all required fields.");
-
       return;
     }
 
@@ -64,7 +56,7 @@ function RequestEditForm({ request, onSubmit, onCancel, isSubmitting }) {
       await onSubmit(cleanedData);
       setValidationError("");
     } catch {
-      // Submission errors are handled by the parent.
+      // Parent displays API errors.
     }
   }
 
@@ -72,17 +64,11 @@ function RequestEditForm({ request, onSubmit, onCancel, isSubmitting }) {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="
-        rounded-2xl
-        border
-        border-slate-200
-        bg-white
-        p-5
-        shadow-sm
-        sm:p-7
-      "
+      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7"
     >
-      <div className="space-y-6">
+      <fieldset disabled={isSubmitting} className="space-y-6">
+        <legend className="sr-only">Edit service request</legend>
+
         <div>
           <label
             htmlFor="edit-name"
@@ -90,7 +76,6 @@ function RequestEditForm({ request, onSubmit, onCancel, isSubmitting }) {
           >
             Customer name
           </label>
-
           <input
             id="edit-name"
             name="name"
@@ -98,26 +83,7 @@ function RequestEditForm({ request, onSubmit, onCancel, isSubmitting }) {
             value={formData.name}
             onChange={handleChange}
             autoComplete="name"
-            className="
-              mt-2
-              block
-              w-full
-              rounded-xl
-              border
-              border-slate-200
-              bg-white
-              px-4
-              py-3
-              text-sm
-              text-slate-950
-              outline-none
-              transition
-              duration-200
-              placeholder:text-slate-400
-              focus:border-slate-400
-              focus:ring-4
-              focus:ring-slate-100
-            "
+            className={fieldClasses}
           />
         </div>
 
@@ -128,7 +94,6 @@ function RequestEditForm({ request, onSubmit, onCancel, isSubmitting }) {
           >
             Service address
           </label>
-
           <input
             id="edit-address"
             name="address"
@@ -136,25 +101,7 @@ function RequestEditForm({ request, onSubmit, onCancel, isSubmitting }) {
             value={formData.address}
             onChange={handleChange}
             autoComplete="street-address"
-            className="
-              mt-2
-              block
-              w-full
-              rounded-xl
-              border
-              border-slate-200
-              bg-white
-              px-4
-              py-3
-              text-sm
-              text-slate-950
-              outline-none
-              transition
-              duration-200
-              focus:border-slate-400
-              focus:ring-4
-              focus:ring-slate-100
-            "
+            className={fieldClasses}
           />
         </div>
 
@@ -165,34 +112,14 @@ function RequestEditForm({ request, onSubmit, onCancel, isSubmitting }) {
           >
             Service type
           </label>
-
           <select
             id="edit-serviceType"
             name="serviceType"
             value={formData.serviceType}
             onChange={handleChange}
-            className="
-              mt-2
-              block
-              w-full
-              rounded-xl
-              border
-              border-slate-200
-              bg-white
-              px-4
-              py-3
-              text-sm
-              text-slate-950
-              outline-none
-              transition
-              duration-200
-              focus:border-slate-400
-              focus:ring-4
-              focus:ring-slate-100
-            "
+            className={fieldClasses}
           >
             <option value="">Select a service</option>
-
             {serviceOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -208,53 +135,23 @@ function RequestEditForm({ request, onSubmit, onCancel, isSubmitting }) {
           >
             Status
           </label>
-
           <select
             id="edit-status"
             name="status"
             value={formData.status}
             onChange={handleChange}
-            className="
-              mt-2
-              block
-              w-full
-              rounded-xl
-              border
-              border-slate-200
-              bg-white
-              px-4
-              py-3
-              text-sm
-              text-slate-950
-              outline-none
-              transition
-              duration-200
-              focus:border-slate-400
-              focus:ring-4
-              focus:ring-slate-100
-            "
+            className={fieldClasses}
           >
             <option value="pending">Pending</option>
-
             <option value="completed">Completed</option>
           </select>
         </div>
-      </div>
+      </fieldset>
 
       {validationError && (
         <p
           role="alert"
-          className="
-            mt-5
-            rounded-xl
-            border
-            border-rose-200
-            bg-rose-50
-            px-4
-            py-3
-            text-sm
-            text-rose-700
-          "
+          className="mt-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700"
         >
           {validationError}
         </p>
@@ -265,27 +162,7 @@ function RequestEditForm({ request, onSubmit, onCancel, isSubmitting }) {
           type="button"
           onClick={onCancel}
           disabled={isSubmitting}
-          className="
-            inline-flex
-            w-full
-            items-center
-            justify-center
-            rounded-xl
-            border
-            border-slate-200
-            bg-white
-            px-4
-            py-3
-            text-sm
-            font-medium
-            text-slate-700
-            transition
-            duration-200
-            hover:bg-slate-50
-            disabled:cursor-not-allowed
-            disabled:opacity-60
-            sm:w-auto
-          "
+          className="inline-flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition duration-200 hover:bg-slate-50 disabled:opacity-60 sm:w-auto"
         >
           Cancel
         </button>
@@ -293,28 +170,14 @@ function RequestEditForm({ request, onSubmit, onCancel, isSubmitting }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="
-            inline-flex
-            w-full
-            items-center
-            justify-center
-            rounded-xl
-            bg-slate-950
-            px-4
-            py-3
-            text-sm
-            font-medium
-            text-white
-            shadow-sm
-            transition
-            duration-200
-            hover:-translate-y-0.5
-            hover:bg-slate-800
-            disabled:cursor-not-allowed
-            disabled:opacity-60
-            sm:w-auto
-          "
+          className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-sm font-medium text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-md disabled:opacity-60 sm:w-auto"
         >
+          {isSubmitting && (
+            <span
+              aria-hidden="true"
+              className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+            />
+          )}
           {isSubmitting ? "Saving changes..." : "Save changes"}
         </button>
       </div>

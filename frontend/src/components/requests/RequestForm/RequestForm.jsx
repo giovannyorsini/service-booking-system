@@ -7,19 +7,13 @@ const initialFormData = {
 };
 
 const serviceOptions = [
-  {
-    value: "gutter installation",
-    label: "Gutter installation",
-  },
-  {
-    value: "gutter repair",
-    label: "Gutter repair",
-  },
-  {
-    value: "gutter cleaning",
-    label: "Gutter cleaning",
-  },
+  { value: "gutter installation", label: "Gutter installation" },
+  { value: "gutter repair", label: "Gutter repair" },
+  { value: "gutter cleaning", label: "Gutter cleaning" },
 ];
+
+const fieldClasses =
+  "mt-2 block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 focus:border-slate-400 focus:ring-4 focus:ring-slate-100";
 
 function RequestForm({ onSubmit, isSubmitting }) {
   const [formData, setFormData] = useState(initialFormData);
@@ -54,11 +48,10 @@ function RequestForm({ onSubmit, isSubmitting }) {
 
     try {
       await onSubmit(cleanedData);
-
       setFormData(initialFormData);
       setValidationError("");
     } catch {
-      // Submission errors are handled by the parent.
+      // Parent displays API errors.
     }
   }
 
@@ -66,22 +59,15 @@ function RequestForm({ onSubmit, isSubmitting }) {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="
-        rounded-2xl
-        border
-        border-slate-200
-        bg-white
-        p-5
-        shadow-sm
-        sm:p-7
-      "
+      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7"
     >
-      <div className="space-y-6">
+      <fieldset disabled={isSubmitting} className="space-y-6">
+        <legend className="sr-only">New service request</legend>
+
         <div>
           <label htmlFor="name" className="text-sm font-medium text-slate-800">
             Customer name
           </label>
-
           <input
             id="name"
             name="name"
@@ -90,26 +76,7 @@ function RequestForm({ onSubmit, isSubmitting }) {
             onChange={handleChange}
             placeholder="John Smith"
             autoComplete="name"
-            className="
-              mt-2
-              block
-              w-full
-              rounded-xl
-              border
-              border-slate-200
-              bg-white
-              px-4
-              py-3
-              text-sm
-              text-slate-950
-              outline-none
-              transition
-              duration-200
-              placeholder:text-slate-400
-              focus:border-slate-400
-              focus:ring-4
-              focus:ring-slate-100
-            "
+            className={fieldClasses}
           />
         </div>
 
@@ -120,7 +87,6 @@ function RequestForm({ onSubmit, isSubmitting }) {
           >
             Service address
           </label>
-
           <input
             id="address"
             name="address"
@@ -129,26 +95,7 @@ function RequestForm({ onSubmit, isSubmitting }) {
             onChange={handleChange}
             placeholder="123 Main Street"
             autoComplete="street-address"
-            className="
-              mt-2
-              block
-              w-full
-              rounded-xl
-              border
-              border-slate-200
-              bg-white
-              px-4
-              py-3
-              text-sm
-              text-slate-950
-              outline-none
-              transition
-              duration-200
-              placeholder:text-slate-400
-              focus:border-slate-400
-              focus:ring-4
-              focus:ring-slate-100
-            "
+            className={fieldClasses}
           />
         </div>
 
@@ -159,34 +106,14 @@ function RequestForm({ onSubmit, isSubmitting }) {
           >
             Service type
           </label>
-
           <select
             id="serviceType"
             name="serviceType"
             value={formData.serviceType}
             onChange={handleChange}
-            className="
-              mt-2
-              block
-              w-full
-              rounded-xl
-              border
-              border-slate-200
-              bg-white
-              px-4
-              py-3
-              text-sm
-              text-slate-950
-              outline-none
-              transition
-              duration-200
-              focus:border-slate-400
-              focus:ring-4
-              focus:ring-slate-100
-            "
+            className={fieldClasses}
           >
             <option value="">Select a service</option>
-
             {serviceOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -194,55 +121,36 @@ function RequestForm({ onSubmit, isSubmitting }) {
             ))}
           </select>
         </div>
-      </div>
+      </fieldset>
 
       {validationError && (
         <p
           role="alert"
-          className="
-            mt-5
-            rounded-xl
-            border
-            border-rose-200
-            bg-rose-50
-            px-4
-            py-3
-            text-sm
-            text-rose-700
-          "
+          className="mt-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700"
         >
           {validationError}
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="
-          mt-7
-          inline-flex
-          w-full
-          items-center
-          justify-center
-          rounded-xl
-          bg-slate-950
-          px-4
-          py-3
-          text-sm
-          font-medium
-          text-white
-          shadow-sm
-          transition
-          duration-200
-          hover:-translate-y-0.5
-          hover:bg-slate-800
-          disabled:cursor-not-allowed
-          disabled:opacity-60
-          sm:w-auto
-        "
-      >
-        {isSubmitting ? "Creating request..." : "Create request"}
-      </button>
+      <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-xs leading-5 text-slate-400">
+          Fields marked by the form are required to create a request.
+        </p>
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-sm font-medium text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        >
+          {isSubmitting && (
+            <span
+              aria-hidden="true"
+              className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+            />
+          )}
+          {isSubmitting ? "Creating request..." : "Create request"}
+        </button>
+      </div>
     </form>
   );
 }
